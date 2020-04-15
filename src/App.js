@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
+import {Login} from './containers/login';
+import querystring from 'querystring';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
-function App() {
+
+const App = () => {
+
+  useEffect(() => {
+    const {pathname, search} = window.location;
+    if(pathname === '/callback') {
+      const {code} = querystring.parse(search.substring(1))
+      console.log(code);
+    }
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Login />
     </div>
   );
 }

@@ -1,13 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { composeWithDevTools } from "redux-devtools-extension";
+import rootReducer from './ducks/root/reducers';
+import rootSaga from './ducks/root/sagas';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+const sagaMiddleware = createSagaMiddleware();
+export const store = createStore(
+  rootReducer(),
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
+)
+
+sagaMiddleware.run(rootSaga)
+
+const Root = () => {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  )
+}
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <Root />,
   document.getElementById('root')
 );
 
