@@ -1,5 +1,7 @@
-import { createAction } from 'typesafe-actions';
 
-export const login = createAction('login/LOGIN ', resolve => {
-    return ({code, redirect_uri}) => resolve ({code, redirect_uri});
+export const login = ({ code }) => ({
+    type: 'login/LOGIN',
+    payload: {
+        code
+    }
 });

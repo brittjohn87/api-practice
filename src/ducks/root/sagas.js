@@ -1,6 +1,7 @@
 import { all } from 'redux-saga/effects';
-import locationSagas from '../location/sagas';
+import loginSagas from '../login/sagas';
+import playlistsSagas from '../playlists/sagas';
 
 export default function * rootSaga() {
-    yield all([...locationSagas].map(saga => saga()));
+    yield all([...loginSagas, ...playlistsSagas].map(saga => saga()));
 }
